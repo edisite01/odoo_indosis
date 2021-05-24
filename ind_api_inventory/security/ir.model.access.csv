@@ -1,0 +1,3 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_ind_api_accounting_token_access,ind_api_accounting_token_access,restful.model_api_access_token,,1,1,1,1
+access_ind_api_accounting_account_move,ind_accounting_account_move,account.model_account_move,,1,1,1,1

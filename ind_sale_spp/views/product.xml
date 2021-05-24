@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <data>
+        <record id="spp_product_margin_form" model="ir.ui.view">
+            <field name="name">view.spp.product.template.product.form</field>
+            <field name="model">product.template</field>
+            <field name="inherit_id" ref="product.product_template_form_view" />
+            <field name="arch" type="xml">
+                <xpath expr="/form/sheet/notebook/page[@name='general_information']/group/group[@name='group_standard_price']/field[@name='company_id']" position="before">
+                    <field name="ind_margin" widget='monetary' options="{'currency_field': 'currency_id'}"/>                    
+                </xpath>                              
+            </field>
+        </record>        
+        <record id="spp_product_margin_kanban" model="ir.ui.view">
+            <field name="name">view.spp.product.template.product.form</field>
+            <field name="model">product.template</field>
+            <field name="inherit_id" ref="product.product_template_kanban_view" />
+            <field name="arch" type="xml">
+                <xpath expr="/kanban/templates/t/div/div[2]/div[3]" position="before">  
+                    <ul>
+                        <li>Margin : <field name="ind_margin" widget="monetary" options="{'currency_field': 'currency_id', 'field_digits': True}"/></li>
+                    </ul>
+                    <div name="tags"/>               
+                </xpath>                              
+            </field>
+        </record>
+    </data>
+</odoo>

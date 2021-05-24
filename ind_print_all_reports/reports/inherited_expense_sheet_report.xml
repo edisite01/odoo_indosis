@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+	<template
+		id="report_report_expense_sheet_in_report"
+		inherit_id="hr_expense.report_expense_sheet">
+		<xpath expr="//div[hasclass('page')]" position="after">
+			<div class="oe_structure"/>
+			<div class="row mb16">
+				<div class="col-3">
+					<div class="offset-12">
+						<span>Atasan Langsung,</span>
+						<br/>
+						<br/>
+					</div>
+					<div class="offset-12" style="max-height: 4cm; max-width: 8cm;">
+						<br/>
+						<br/>
+						<br/>
+					</div>
+					<div class="offset-12 text-center">
+					<hr></hr>
+						<p><i></i></p>
+					</div>
+				</div>
+				<div class="col-3">
+					<div class="offset-12">
+						<span>Pemohon,</span>
+						<br/>
+						<br/>
+					</div>
+					<div class="offset-12" style="max-height: 4cm; max-width: 8cm;">
+						<br/>
+						<br/>
+						<br/>
+					</div>
+					<div class="offset-12 text-center">
+					<hr></hr>
+						<p><i></i></p>
+					</div>
+				</div>
+				<div class="col-3">
+					<div class="offset-12">
+						<span>HRD,</span>
+						<br/>					
+						<br/>
+					</div>
+					<div class="offset-12" style="max-height: 4cm; max-width: 8cm;">
+						<br/>
+						<br/>
+						<br/>
+					</div>
+					<div class="offset-12 text-center">
+					<hr></hr>
+						<p><i></i></p>
+					</div>					
+				</div>				
+				<div class="col-3">
+					<div class="offset-12">
+						<span>Bagian Keuangan,</span>
+						<br/>					
+						<br/>
+					</div>
+					<div class="offset-12" style="max-height: 4cm; max-width: 8cm;">
+						<br/>
+						<br/>
+						<br/>
+					</div>
+					<div class="offset-12 text-center">
+					<hr></hr>
+						<p><i></i></p>
+					</div>				
+				</div>				
+			</div>
+		</xpath>
+	</template>
+</odoo>

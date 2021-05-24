@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+	<template
+		id="report_delivery_document_extends_add_barcode_in_report"
+		inherit_id="stock.report_delivery_document">
+		<xpath expr="//div[hasclass('page')]" position="after">
+			<div class="oe_structure"/>
+			<div class="row mb16">
+				<div class="col-3">
+					<div class="offset-12">
+						<span>Approved By,</span>
+						<br/>
+						<br/>
+					</div>
+					<div class="offset-12" style="max-height: 4cm; max-width: 8cm;">
+						<br/>
+						<br/>
+						<br/>
+					</div>
+					<div class="offset-12 text-center">
+					<hr></hr>
+						<p><i></i></p>
+					</div>
+				</div>
+				<div class="col-3">
+					<div class="offset-12">
+						<span>Delivered By,</span>
+						<br/>
+						<br/>
+					</div>
+					<div class="offset-12" style="max-height: 4cm; max-width: 8cm;">
+						<br/>
+						<br/>
+						<br/>
+					</div>
+					<div class="offset-12 text-center">
+					<hr></hr>
+						<p><i></i></p>
+					</div>
+				</div>
+				<div class="col-3">
+					<div class="offset-12">
+						<span>Received By,</span>
+						<br/>					
+						<br/>
+					</div>
+					<div class="offset-12" style="max-height: 4cm; max-width: 8cm;">
+						<br/>
+						<br/>
+						<br/>
+					</div>
+					<div class="offset-12 text-center">
+					<hr></hr>
+						<p><i></i></p>
+					</div>					
+				</div>				
+				<div class="col-3">
+					<div class="offset-12">
+						<span>Confirmed By,</span>
+						<br/>					
+						<br/>
+					</div>
+					<div class="offset-12" style="max-height: 4cm; max-width: 8cm;">
+						<br/>
+						<br/>
+						<br/>
+					</div>
+					<div class="offset-12 text-center">
+					<hr></hr>
+						<p><i></i></p>
+					</div>				
+				</div>				
+			</div>
+		</xpath>
+		<xpath expr="//t[@t-set='address']" position="replace">
+			<div class="oe_structure"/>
+			<div class="row justify-content-start">
+				<div class="col-6">
+					<div class="rounded">
+						<table class="table table-sm">
+							<tbody>
+								<tr class="table-light col-content bg">
+									<td colspan="2"><strong>Customer :</strong>									
+									</td>							
+								</tr>
+								<tr>
+									<td width="40px"><strong>Name</strong></td>
+									<td>
+										<span t-field="o.partner_id" t-options="{&quot;widget&quot;: &quot;contact&quot;, &quot;fields&quot;: [ &quot;name&quot;], &quot;no_marker&quot;: True, &quot;phone_icons&quot;: True}"/>
+									</td>
+								</tr>						
+								<tr>
+									<td width="40px"><strong>Address</strong></td>
+									<td>
+										<span t-field="o.partner_id" t-options="{&quot;widget&quot;: &quot;contact&quot;, &quot;fields&quot;: [&quot;address&quot;], &quot;no_marker&quot;: True, &quot;phone_icons&quot;: True}"/>
+									</td>
+								</tr>							
+								<tr style="background-color:#FFF">
+									<td width="40px"><strong>Phone</strong></td>
+									<td>
+										<span t-field="o.partner_id" t-options="{&quot;widget&quot;: &quot;contact&quot;, &quot;fields&quot;: [&quot;phone&quot;], &quot;no_marker&quot;: True, &quot;phone_icons&quot;: True}"/>
+									</td>
+								</tr>							
+							</tbody>					
+						</table>
+					</div>					
+				</div>
+				<div class="col-4 offset-2">
+					<h3 class="mt16 text-center">
+						<span class="font-weight-bold" style="font-family:'Verdana', sans-serif;">DELIVERY ORDER</span>
+					</h3>
+					
+				</div>
+			</div>
+		</xpath>
+
+	</template>
+</odoo>

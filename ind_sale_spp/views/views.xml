@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <data>
+        <record id="spp_order_form" model="ir.ui.view">
+            <field name="name">view.sale.spp.order.form</field>
+            <field name="model">sale.order</field>
+            <field name="inherit_id" ref="sale.view_order_form" />
+            <field name="arch" type="xml">
+                <xpath expr="/form/sheet/notebook/page[1]/field[@name='order_line']/tree/field[@name='price_subtotal']" position="before">
+                    <field name="slump"/>
+                    <field name="metode_curah"/>
+                    <field name="waktu_loading"/>
+                </xpath>                
+                <xpath expr="/form/sheet/notebook/page[@name='other_information']/group/group[@name='sales_person']" position="after">
+                    <group name="sales_spp" string="Surat Perintah Produksi">
+                        <field name="kontraktor"/>
+                        <field name="name_proyek"/>    
+                        <field name="contact_person"/>    
+                        <field name="hp" widget="phone"/>    
+                        <field name="alamat_proyek"/>    
+                    </group>
+                </xpath>
+            </field>
+        </record>
+    </data>
+</odoo>

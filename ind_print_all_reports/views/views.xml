@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record model="ir.ui.view" id="sale_addsnote_form">
+            <field name="name">sale.addsnote.form</field>
+            <field name="model">sale.order</field>
+            <field name="inherit_id" ref="sale.view_order_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//sheet//notebook//page[1]//group//group[1]//field[@name='note']" position="after">
+                    <field name="additional_note" nolabel="1" placeholder="Additional Notes..."/>
+                </xpath>
+            </field>
+        </record>
+    </data>
+</odoo>

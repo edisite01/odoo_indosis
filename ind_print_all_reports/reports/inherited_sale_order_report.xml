@@ -1,0 +1,233 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+	<template
+		id="report_saleorder_document_extends_add_barcode_in_report"
+		inherit_id="sale.report_saleorder_document">
+		<xpath expr="//t[@t-set='address']" position="before">
+			<div class="oe_structure"/>			
+
+			<h3 class="mt16 text-right">
+				<span class="font-weight-bold" style="font-family:'Verdana', sans-serif;">SALES ORDER </span>
+			</h3>
+		</xpath>
+		
+		<xpath expr="//t[@t-set='address']" position="replace">
+			<div class="oe_structure"/>
+			<div class="row justify-content-start">
+				<div class="col-6">
+					<div class="rounded">
+						<table class="table table-sm">
+							<tbody>
+								<tr class="table-light col-content bg">
+									<td colspan="2"><strong>Customer :</strong>									
+									</td>							
+								</tr>
+								<tr>
+									<td width="40px"><strong>Name</strong></td>
+									<td>
+										<span t-field="doc.partner_id" t-options="{&quot;widget&quot;: &quot;contact&quot;, &quot;fields&quot;: [ &quot;name&quot;], &quot;no_marker&quot;: True, &quot;phone_icons&quot;: True}"/>
+									</td>
+								</tr>						
+								<tr>
+									<td width="40px"><strong>Address</strong></td>
+									<td>
+										<span t-field="doc.partner_id" t-options="{&quot;widget&quot;: &quot;contact&quot;, &quot;fields&quot;: [&quot;address&quot;], &quot;no_marker&quot;: True, &quot;phone_icons&quot;: True}"/>
+									</td>
+								</tr>							
+								<tr style="background-color:#FFF">
+									<td width="40px"><strong>Phone</strong></td>
+									<td>
+										<span t-field="doc.partner_id" t-options="{&quot;widget&quot;: &quot;contact&quot;, &quot;fields&quot;: [&quot;phone&quot;], &quot;no_marker&quot;: True, &quot;phone_icons&quot;: True}"/>
+									</td>
+								</tr>							
+							</tbody>					
+						</table>
+					</div>					
+				</div>
+				<t t-if="doc.partner_shipping_id">
+				<div class="col-6">
+					<div class="rounded">
+						<table class="table table-sm">
+							<tbody>
+								<tr class="table-light">
+									<td colspan="2"><strong>Delivery To. :</strong>
+									</td>							
+								</tr>
+								<tr>
+									<td width="40px"><strong>Name</strong></td>
+									<td>
+										<span t-field="doc.partner_shipping_id" t-options="{&quot;widget&quot;: &quot;contact&quot;, &quot;fields&quot;: [ &quot;name&quot;], &quot;no_marker&quot;: True, &quot;phone_icons&quot;: True}"/>
+									</td>
+								</tr>						
+								<tr>
+									<td width="40px"><strong>Address</strong></td>
+									<td>
+										<span t-field="doc.partner_shipping_id" t-options="{&quot;widget&quot;: &quot;contact&quot;, &quot;fields&quot;: [&quot;address&quot;], &quot;no_marker&quot;: True, &quot;phone_icons&quot;: True}"/>
+									</td>
+								</tr>						
+								<tr>
+									<td width="40px"><strong>Phone</strong></td>
+									<td>
+										<span t-field="doc.partner_shipping_id" t-options="{&quot;widget&quot;: &quot;contact&quot;, &quot;fields&quot;: [&quot;phone&quot;], &quot;no_marker&quot;: True, &quot;phone_icons&quot;: True}"/>
+									</td>
+								</tr>	
+							</tbody>
+						</table>
+					</div>				
+				</div>			
+				</t>
+			</div>
+		</xpath>
+		<!-- 
+		<xpath expr="//t[@t-set='information_block']" position="replace">						
+	
+		</xpath>
+		-->		
+		<xpath expr="//div[hasclass('page')]//h2" position="replace">	
+		</xpath>
+
+		<xpath expr="//div[hasclass('page')]//div[@id='informations']//div[@t-if='doc.client_order_ref']" position="before">	
+			<div t-if="doc.name" class="col-auto mw-100 mb-2">
+				<strong>No. Sales Order:</strong>
+				<p class="m-0 text-lg" t-field="doc.name"/>
+			</div>			
+		</xpath>
+
+
+		<xpath expr="//div[@name='signature']" position="after">
+			<div class="oe_structure"/>
+			<div class="row mb16">
+				<!-- <div class="col-3">
+					<div class="offset-12">
+						<br/>
+						<br/>
+					</div>
+					<div class="offset-12" style="max-height: 4cm; max-width: 8cm;">
+						<br/>
+						<br/>
+						<br/>
+					</div>
+					<div class="offset-12 text-center">
+					<hr></hr>
+						<p><i>Customer</i></p>
+					</div>
+				</div>
+				<div class="col-3">
+					<div class="offset-12">
+						<br/>
+						<br/>
+					</div>
+					<div class="offset-12" style="max-height: 4cm; max-width: 8cm;">
+						<br/>
+						<br/>
+						<br/>
+					</div>
+					<div class="offset-12 text-center">
+					<hr></hr>
+						<p><i>Marketing</i></p>
+					</div>
+				</div>
+				<div class="col-3">
+					<div class="offset-12">
+						<br/>
+						<br/>
+					</div>
+					<div class="offset-12" style="max-height: 4cm; max-width: 8cm;">
+						<br/>
+						<br/>
+						<br/>
+					</div>
+					<div class="offset-12 text-center">
+					<hr></hr>
+						<p><i>Admin Marketing</i></p>
+					</div>
+				</div> -->
+				<div class="col-3 offset-8">
+					<div class="col-8 offset-2">
+						<span>Approved By,</span>
+						<br/>					
+						<br/>
+					</div>
+					<div class="offset-12" style="max-height: 4cm; max-width: 8cm;">
+						<br/>
+						<br/>
+						<br/>
+					</div>
+					<div class="offset-12 text-center">
+					<hr></hr>
+						<p><i></i></p>
+					</div>					
+				</div>			
+			</div>
+
+		</xpath>
+
+		<xpath expr="//div[hasclass('page')]//div[@name='so_total_summary']" position="replace">
+			<div class="clearfix" name="so_total_summary">
+				<div id="total" class="row" name="total">
+					<div class="col-8">
+						<t t-if="doc.note">
+							<span class="font-weight-bold" style="font-family:'Verdana', sans-serif;">Terms and Conditions </span>
+							<div style="border: 1px solid black; padding:5px">
+								<span t-field="doc.note"/>
+							</div>
+						</t>					
+						<t t-if="doc.payment_term_id.note">
+							<div style="border: 1px solid black; padding:5px">
+								<span t-field="doc.payment_term_id.note"/>
+							</div>
+						</t>
+						<t t-if="doc.note">
+							<span class="font-weight-bold" style="font-family:'Verdana', sans-serif;">Additional Notes </span>
+							<div style="border: 1px solid black; padding:5px">
+								<span t-field="doc.additional_note"/>
+							</div>
+						</t>
+					</div>
+					<div class="col-4">
+						<table class="table table-sm">
+							<tr class="border-black o_subtotal" style="">
+								<td name="td_amount_untaxed_label"><strong>Subtotal</strong></td>
+								<td name="td_amount_untaxed" class="text-right">
+									<span t-field="doc.amount_untaxed"/>
+								</td>
+							</tr>
+							<t t-foreach="doc.amount_by_group" t-as="amount_by_group">
+								<tr style="">
+									<t t-if="amount_by_group[5] == 1 and doc.amount_untaxed == amount_by_group[2]">
+										<td name="td_amount_by_group_label_3">
+											<span t-esc="amount_by_group[0]"/>
+											<span>&amp;nbsp;<span>on</span>&amp;nbsp;<t t-esc="amount_by_group[2]" t-options="{&quot;widget&quot;: &quot;monetary&quot;, &quot;display_currency&quot;: doc.pricelist_id.currency_id}"/></span>
+										</td>
+										<td name="td_amount_by_group_3" class="text-right o_price_total">
+											<span t-esc="amount_by_group[1]" t-options="{&quot;widget&quot;: &quot;monetary&quot;, &quot;display_currency&quot;: doc.pricelist_id.currency_id}"/>
+										</td>
+									</t>
+									<t t-else="">
+										<td name="td_amount_by_group_label">
+											<span t-esc="amount_by_group[0]"/>
+										</td>
+										<td name="td_amount_by_group" class="text-right o_price_total">
+											<span t-esc="amount_by_group[1]" t-options="{&quot;widget&quot;: &quot;monetary&quot;, &quot;display_currency&quot;: doc.pricelist_id.currency_id}"/>
+										</td>
+									</t>
+								</tr>
+							</t>
+							<tr class="border-black o_total">
+								<td name="td_amount_total_label"><strong>Total</strong></td>
+								<td name="td_amount_total" class="text-right">
+									<span t-field="doc.amount_total"/>
+								</td>
+							</tr>
+						</table>
+					</div>
+				</div>
+			</div>
+		</xpath>
+
+		<xpath expr="//div[hasclass('page')]//p[@t-field='doc.note']" position="replace">	
+		</xpath>		
+		<xpath expr="//div[hasclass('page')]//p[@t-if='doc.payment_term_id.note']" position="replace">	
+		</xpath>
+	</template>
+</odoo>

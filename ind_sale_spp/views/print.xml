@@ -1,0 +1,182 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+		<record id="sheet_a5" model="report.paperformat">
+			<field name="name">A4 low margin</field>
+			<field name="default" eval="True" />
+			<field name="format">A4</field>
+			<field name="page_height">0</field>
+			<field name="page_width">0</field>
+			<field name="orientation">Portrait</field>
+			<field name="margin_top">17</field>
+			<field name="margin_bottom">7</field>
+			<field name="margin_left">7</field>
+			<field name="margin_right">7</field>
+			<field name="header_line" eval="False" />
+			<field name="header_spacing">0</field>
+			<field name="dpi">90</field>
+		</record>
+		
+        <report
+            id="spp_print"
+            model="sale.order"
+            string="Surat Perintah Produksi"
+            name="ind_sale_spp.sale_spp_model_template"
+            report_type="qweb-pdf"
+            print_report_name="'SPP - %s' % (object.name)"
+            paperformat="sheet_a5"/>
+			
+        />
+        <template id="sale_spp_model_template">
+            <style type="text/css">
+				td {
+					font-family:Arial, Helvetica, sans-serif;
+					font-size:10pt;
+					border-bottom:1px solid black;
+				}
+				.BodyType {
+					font-family: Arial, Helvetica, sans-serif;
+					font-size: 10pt;
+					font-weight: normal;
+					color: #000000;
+					vertical-align: top;
+					text-align: left;
+					border-bottom:1px solid black;
+				}
+			</style>
+            <t t-call="web.html_container">
+                <t t-foreach="docs" t-as="o">
+                    <t t-call="web.layout">	
+							<h2 align="center"><b>PT. BERKAH BETON SADAYA Tbk</b></h2>					
+							<h4 align="center">SURAT PERINTAH PRODUKSI</h4>					
+							<table class="BodyType" align="center" cellpadding="4" cellspacing="0" style="width:100%; border:1px solid black;">		
+								<tr>
+									<td style="width:30%; border-bottom:1px solid black; border-top:1px solid black; "><b>Hari / Tanggal</b></td>
+									<td style="border-bottom:1px solid black; border-top:1px solid black; ">: 
+										<t t-if="o.date_order">
+											<t t-esc="o.date_order"/>
+										</t>
+									</td>
+								</tr>							
+								<tr>
+									<td style="border-bottom:1px solid black; "><b>Nomor Sales Order</b></td>
+									<td style="border-bottom:1px solid black; ">: 
+										<t t-if="o.name">
+											<t t-esc="o.name"/>
+										</t>
+									</td>
+								</tr>							
+								<tr>
+									<td style="border-bottom:1px solid black; "><b>Nama Marketing</b></td>
+									<td style="border-bottom:1px solid black; ">: 
+										<t t-if="o.user_id.name">
+											<t t-esc="o.user_id.name"/>
+										</t>
+									</td>
+								</tr>							
+								<tr>
+									<td style="border-bottom:1px solid black; "><b>Nama Kontraktor</b></td>
+									<td style="border-bottom:1px solid black; ">: 
+									<t t-if="o.kontraktor.name">
+											<t t-esc="o.kontraktor.name"/>
+										</t>
+									</td>
+								</tr>							
+								<tr>
+									<td style="border-bottom:1px solid black; "><b>Nama Proyek</b></td>
+									<td style="border-bottom:1px solid black; ">: 
+										<t t-if="o.name_proyek">
+											<t t-esc="o.name_proyek"/>
+										</t>
+									</td>
+								</tr>							
+								<tr>
+									<td style="border-bottom:1px solid black; "><b> Person</b></td>
+									<td style="border-bottom:1px solid black; ">: 
+										<t t-if="o.contact_person">
+											<t t-esc="o.contact_person"/>
+										</t>
+									</td>
+								</tr>							
+								<tr>
+									<td style="border-bottom:1px solid black; "><b>No. Telp / HP</b></td>
+									<td style="border-bottom:1px solid black; ">: 
+										<t t-if="o.hp">
+											<t t-esc="o.hp"/>
+										</t>
+									</td>
+								</tr>                            
+								<tr>
+									<td style="border-bottom:1px solid black; "><b>Alamat Proyek</b></td>
+									<td style="border-bottom:1px solid black; ">: 
+										<t t-if="o.alamat_proyek">
+											<t t-esc="o.alamat_proyek"/>
+										</t>
+									</td>
+								</tr>
+							</table>			
+							
+							<p><b>DETAIL ORDER</b></p>
+							<table class="BodyType" cellpadding="2" style="width:100%; border:1px solid black;">
+								<thead>
+									<tr>
+										<th name="th_description" class="text-left" >Mutu</th>
+										<th name="th_quantity" class="text-right">Quantity</th>
+										<th name="th_slump" class="text-left">Slump</th>
+										<th name="th_priceunit" class="text-left">Metode Curah</th>
+										<th name="th_waktuloading" class="text-left">Waktu Loading</th>
+									</tr>
+								</thead>
+								<tbody class="sale_tbody">
+									<t t-foreach="o.order_line" t-as="line">
+
+										<tr t-att-class="'bg-200 font-weight-bold o_line_section' if line.display_type == 'line_section' else 'font-italic o_line_note' if line.display_type == 'line_note' else ''">
+											<t t-if="not line.display_type">
+												<td name="td_name"><span t-field="line.name"/></td>
+												<td name="td_quantity" class="text-right">
+													<span t-field="line.product_uom_qty"/>
+													<span t-field="line.product_uom" groups="uom.group_uom"/>
+												</td>
+												<td name="td_slump" class="text-left">																			
+													<span t-field="line.slump"/>													
+												</td>											
+												<td name="td_metode_curah" class="text-center">
+													<span t-field="line.metode_curah"/>
+												</td>												
+												<td name="waktu_loading" class="text-left">
+												<span class="text-left">Jam </span>
+													<span t-field="line.waktu_loading"/>
+												<span class="text-right">WIB </span>
+												</td>
+											</t>
+										</tr>
+									</t>
+								</tbody>
+							</table>
+							<br></br>
+							<table style="width:100%;" cellpadding="3" cellspacing="20">
+								<tr>
+									<td width="25%" align='center'>Dibuat oleh,</td>
+									<td width="25%" align='center'>Dilaksanakan oleh,</td>
+									<td width="50%" colspan='2' align='center'>Mengetahui,</td>
+								</tr>								
+								<tr>
+									<td width="25%" height="40px"></td>
+									<td width="25%" height="40px"></td>
+									<td width="25%" height="40px"></td>
+									<td width="25%" height="40px"></td>
+								</tr>																
+								<tr>
+									<td style="border-collapse:collapse; border-top:1px dashed #040404; height: 23px;"><i>Admin Marketing</i></td>
+									<td style="border-collapse:collapse; border-top:1px dashed #040404; height: 23px;"><i>Kepala Produksi</i></td>
+									<td style="border-collapse:collapse; border-top:1px dashed #040404; height: 23px;"><i>Kepala Plant</i></td>
+									<td style="border-collapse:collapse; border-top:1px dashed #040404; height: 23px;"><i>Direktur Operasional</i></td>
+								</tr>								
+							</table>
+
+                    </t>
+                </t>
+            </t>
+        </template>
+    </data>
+</odoo>
