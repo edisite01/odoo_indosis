@@ -1,0 +1,6 @@
+<record model="ir.rule" id="rule_produk_non_aktif">
+    <field name="name">Produk Non Aktif</field>
+    <field name="model_id" ref="cafe.model_cafe_produk"/>
+    <field name="domain_force">[('is_aktif', '=', False)]</field>
+    <field name="groups" eval="[(4, ref('cafe_security.group_cafe_user'))]"/>
+</record>

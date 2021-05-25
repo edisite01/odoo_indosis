@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    
+    <template id="display_nest" name="Nest">
+        <t t-call="website.layout">
+            <div class="container">
+                <label class="label label-info"><i class="fa fa-truck-container"></i> Delivery Nest 
+                <i class="small">Registration Delivery Order</i>
+                </label>
+                <!-- <div class="card border-left-0 border-right-0 border-top-0 border-bottom-0"> -->
+                <div class="card table-responsive border rounded border-top-0 ">
+                    <div class="card-header">
+                        <a href="/nest/create/"><i class="fa fa-plus-circle"></i> Create</a>                    
+                    </div>
+                    <div class="card-body">
+                    <table width="100%" class="table table-sm rounded mb-0 bg-white o_portal_my_doc_table">
+                        <thead class="thead-dark">                
+                            <tr>
+                                <th width='10%'>Nomor</th>
+                                <!-- <th width='15%'>Date</th> -->
+                                <th width='30%'>Product Name</th>
+                                <th width='15%'>Schedule Delivery</th>
+                                <th width='10%'>Status</th>
+                                <th width='10%' class="text-center">Edit</th>
+                            </tr>                          
+                        </thead>
+                        <t t-foreach="n" t-as="line">
+                            <tbody>
+                                <tr>
+                                    <!-- <td><span t-esc="line.create_date.strftime('%Y-%m-%d')"/></td> -->
+                                    <td>
+                                        <a t-attf-href="/nest/views?id=#{line.id}">
+                                        <span class="text-primary" t-esc="line.name"/></a>
+                                    </td>
+                                    <td class="text-left">                                    
+                                        <a t-attf-href="/nest/views?id=#{line.id}">
+                                        <span class="text-primary" t-esc="line.product_name"/></a>
+                                    </td>
+                                    <!-- <td class="text-center"><span t-esc="line.weight"/></td> -->
+                                    <td><span t-esc="line.date_order"/></td>
+                                    <!-- <td><span t-esc="line.state"/></td> -->
+                                    <td class="tx_status">
+                                        <t t-if="line.state == 'open'">
+                                            <span class="badge badge-pill badge-sm badge-info"><i class="fa fa-fw fa-clock-o" aria-label="Opened" title="Opened" role="img"/><span class="d-none d-md-inline"> Waiting Approved </span></span>
+                                        </t>                                        
+                                        <t t-if="line.state == 'approve'">
+                                            <span class="badge badge-pill badge-sm badge-primary"><i class="fa fa-fw fa-clock-o" aria-label="Approved" title="Approved" role="img"/><span class="d-none d-md-inline"> Approved</span></span>
+                                        </t>
+                                        <t t-if="line.state == 'done'">
+                                            <span class="badge badge-pill badge-sm badge-success"><i class="fa fa-fw fa-check" aria-label="Done" title="Done" role="img"/><span class="d-none d-md-inline"> Done</span></span>
+                                        </t>
+                                        <t t-if="line.state == 'cancel'">
+                                            <span class="badge badge-pill badge-sm badge-warning"><i class="fa fa-fw fa-remove" aria-label="Cancelled" title="Cancelled" role="img"/><span class="d-none d-md-inline"> Cancelled</span></span>
+                                        </t>                                        
+                                        <t t-if="line.state == 'draft'">
+                                            <span class="badge badge-pill badge-sm badge-primary"><i class="fa fa-fw fa-pencil" aria-label="Draft" title="Draft" role="img"/><span class="d-none d-md-inline"> Draft</span></span>
+                                        </t>                                        
+                                        
+                                        <t t-if="line.state == 'sent'">
+                                            <span class="badge badge-pill badge-sm badge-primary"><i class="fa fa-fw fa-check" aria-label="Sent" title="Sent" role="img"/><span class="d-none d-md-inline"> Sent</span></span>
+                                        </t>                                        
+                                        <t t-if="line.state == 'receive'">
+                                            <span class="badge badge-pill badge-sm badge-primary"><i class="fa fa-fw fa-check" aria-label="Receive" title="Receive" role="img"/><span class="d-none d-md-inline"> Receive</span></span>
+                                        </t>                                        
+                                        <t t-if="line.state == 'cleanandrinse'">
+                                            <span class="badge badge-pill badge-sm badge-primary"><i class="fa fa-fw fa-check" aria-label="Clean and Rinse" title="Draft" role="img"/><span class="d-none d-md-inline"> Clean and Rinse</span></span>
+                                        </t>                                        
+                                        <t t-if="line.state == 'grading'">
+                                            <span class="badge badge-pill badge-sm badge-primary"><i class="fa fa-fw fa-check" aria-label="Grading" title="Grading" role="img"/><span class="d-none d-md-inline"> Grading</span></span>
+                                        </t>                                        
+                                        <t t-if="line.state == 'grading_approval'">
+                                            <span class="badge badge-pill badge-sm badge-primary"><i class="fa fa-fw fa-check" aria-label="Grading Approval" title="Approval" role="img"/><span class="d-none d-md-inline"> Grading Approval</span></span>
+                                        </t>                                        
+                                        <t t-if="line.state == 'purchase'">
+                                            <span class="badge badge-pill badge-sm badge-primary"><i class="fa fa-fw fa-check" aria-label="Purchase" title="Purchase" role="img"/><span class="d-none d-md-inline"> Purchase</span></span>
+                                        </t>                                        
+                                        <t t-if="line.state == 'billing'">
+                                            <span class="badge badge-pill badge-sm badge-primary"><i class="fa fa-fw fa-check" aria-label="Billing" title="Billing" role="img"/><span class="d-none d-md-inline"> Billing</span></span>
+                                        </t>
+                                    </td>
+                                    <td class="text-center">
+                                        <t t-if="line.state == 'draft'">
+                                            <a t-attf-href="/nest/edit?id=#{line.id}" class="badge badge-pill badge-sm badge-warning"><i class="fa fa-pencil" title="Edit"></i> </a> 
+                                            <a t-attf-href="/nest/delete?id=#{line.id}" class="badge badge-pill badge-sm badge-danger"><i class="fa fa-trash" title="Delete"></i> </a>
+                                        </t>                                        
+                                        <t t-if="line.state == 'cancel'">         
+                                            <a t-attf-href="/nest/delete?id=#{line.id}" class="badge badge-pill badge-sm badge-danger"><i class="fa fa-trash" title="Delete"></i> </a>
+                                        </t>
+                                    
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </t>                
+                    </table>
+            
+                    </div>
+                </div>
+            </div>
+        </t>
+    </template>
+    
+</odoo>

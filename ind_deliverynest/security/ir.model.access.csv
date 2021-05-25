@@ -1,0 +1,9 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_nest,access nests,model_nest_nests,,1,1,1,1
+access_nest_sent,access nests sent,model_nest_nests_sent,,1,1,1,1
+access_nest_receive,access nests receive,model_nest_nests_receive,,1,1,1,1
+access_nest_cleanandrinse,access nests cleanandrinse,model_nest_nests_cleanandrinse,,1,1,1,1
+access_nest_grading,access nests grading,model_nest_nests_grading,,1,1,1,1
+access_nest_purchase,access nests purchase,model_nest_nests_purchase,,1,1,1,1
+access_nest_billing,access nests billing,model_nest_nests_billing,,1,1,1,1
+access_nest_seq,access nests seq,base.model_ir_sequence,"",1,1,1,1

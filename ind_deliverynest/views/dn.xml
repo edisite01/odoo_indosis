@@ -1,0 +1,158 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <data>
+        <!-- List View -->
+        <record model="ir.ui.view" id="nests_tree">
+            <field name="name">nest_nests_tree</field>
+            <field name="model">nest.nests</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <!-- <field name="create_date"/> -->
+                    <field name="name"/>
+                    <field name="product_name"/>
+                    <field name="vendor_id"/>
+                    <field name="date_order"/>
+                    <field name="state"/>
+                </tree>
+            </field>
+        </record>
+        
+        <!-- Form View -->
+        <record model="ir.ui.view" id="nest_nests_form">
+            <field name="name">nest_nests_form</field>
+            <field name="model">nest.nests</field>
+            <field name="arch" type="xml">
+                <form>
+                    <header>
+                        
+                        <button name="set_open" string="Open" type="object" class="oe_highlight" attrs="{'invisible':[('state','!=', 'draft')]}"/>      
+                        <button name="set_open" string="Reset to Open" type="object" attrs="{'invisible':[('state','!=','cancel')]}"/>      
+                        <button name="set_approve" string="Approve" type="object" class="oe_highlight" attrs="{'invisible':[('state','!=', 'open')]}"/>      
+                        <button name="set_cancel" string="Cancel" type="object" attrs="{'invisible':[('state','!=', 'open')]}"/>      
+                        <button name="set_sent_wizard" string="Sent Product" type="object" class="oe_highlight" attrs="{'invisible':[('state','!=', 'approve')]}"/>    
+                        <button name="set_receive" string="Receive" type="object" class="oe_highlight" attrs="{'invisible':[('state','!=', 'sent')]}"/>    
+                        <button name="set_cleanandrinse" string="Clean And Rinse" type="object" class="oe_highlight" attrs="{'invisible':[('state','!=', 'receive')]}"/>    
+                        <button name="set_grading" string="Grading" type="object" class="oe_highlight" attrs="{'invisible':[('state','!=', 'cleanrinse')]}"/>    
+                        <button name="set_grading_approval" string="Grading Approval" type="object" class="oe_highlight" attrs="{'invisible':[('state','!=', 'grading')]}"/>    
+                        <button name="set_purchase" string="Purchase" type="object" class="oe_highlight" attrs="{'invisible':[('state','!=', 'grading_approval')]}"/>    
+                        <button name="set_billing" string="Billing" type="object" class="oe_highlight" attrs="{'invisible':[('state','!=', 'purchase')]}"/>                           
+                        <button name="set_done" string="Done" type="object" class="oe_highlight" attrs="{'invisible':[('state','!=', 'billing')]}"/>    
+
+                        <field name="state" widget="statusbar" clickable="False" attrs="{'readonly':True}"/>
+                    </header>
+                    <sheet>
+                        <div class="oe_title">
+                            <span class="o_form_label">Request for Sending</span>
+                            <h1>
+                                <field name="name" class="oe_inline"/>
+                            </h1>
+                        </div>
+                        <group>
+                            <group>
+                                <field name="product_name"/>
+                                <field name="weight" string="Weight (Gram)"/>
+                                <field name="date_order"/>
+                                <field name="vendor_id" options="{'no_open': True, 'no_create': True}" attrs="{'readonly': [('state', 'not in', ('draft'))]}" />
+                            </group>
+                            <group>
+                                <field name="image" string="Image Product" widget="image"/>
+                            </group>
+                        </group>
+                        <notebook>
+                            <page string="Info Sent">
+                                <field name="sent_ids" attrs="{'invisible': [('state', 'in', ('draft','open','approve'))]}" options="{'no_create_edit': False}">
+                                    <tree string="Lines" editable="bottom">                                       
+                                        <field name="sender_date"/>
+                                        <field name="shipper" />
+                                        <field name="nomor_resi"/>
+                                    </tree>
+                                </field>
+                            </page>                            
+                            <page string="Received">
+                                <field name="receive_ids" attrs="{'invisible': [('state', 'in', ('draft','open','approve','sent'))]}" options="{'no_create_edit': False}">
+                                    <tree string="Lines" editable="bottom">                                       
+                                        <field name="receive_date"/>
+                                        <field name="pic_id" />
+                                    </tree>
+                                </field>
+                            </page>                            
+                            <page string="Clean And Rinse">
+                                <field name="cleanandrinse_ids" attrs="{'invisible': [('state', 'in', ('draft','open','approve','sent','receive'))]}" options="{'no_create_edit': False}">
+                                    <tree string="Lines" editable="bottom">                                       
+                                        <field name="cleanandrinse_date"/>
+                                        <field name="pic_id" />
+                                        <field name="weight_cleanandrinse" />
+                                    </tree>
+                                </field>
+                            </page>                            
+                            <page string="Grading">
+                                <field name="grading_ids" attrs="{'invisible': [('state', 'in', ('draft','open','approve','sent','receive','cleanandrinse'))]}" options="{'no_create_edit': False}">
+                                    <tree string="Lines" editable="bottom">                                       
+                                        <field name="grading_date"/>
+                                        <field name="pic_id" />
+                                        <field name="weight_grading" />
+                                        <field name="price" />
+                                    </tree>
+                                </field>
+                            </page>                            
+                            <page string="Purchasing">
+                                <field name="purchase_ids" attrs="{'invisible': [('state', 'in', ('draft','open','approve','sent','receive','cleanandrinse','grading'))]}" options="{'no_create_edit': False}">
+                                    <tree string="Lines" editable="bottom">                                       
+                                        <field name="purchase_date"/>
+                                        <field name="pic_id" />
+                                        <field name="weight_grading" />
+                                        <field name="price" />
+                                    </tree>
+                                </field>
+                            </page>                            
+                            <page string="Billing">
+                                <field name="billing_ids" attrs="{'invisible': [('state', 'in', ('draft','open','approve','sent','receive','cleanandrinse','grading','purchase'))]}" options="{'no_create_edit': False}">
+                                    <tree string="Lines" editable="bottom">                                       
+                                        <field name="payment" />
+                                    </tree>
+                                </field>
+                            </page>
+                        </notebook>
+                    </sheet>
+                    
+                </form>
+            </field>
+        </record>
+
+            <!-- Search View -->
+        <record model="ir.ui.view" id="nest_nests_search">
+            <field name="name">nest_nests_search</field>
+            <field name="model">nest.nests</field>
+            <field name="arch" type="xml">
+                <search>
+                    <!-- <field name="name"/> -->
+                    <!-- <field name="activity_stage_rel"/> -->
+
+                    <filter name="state_draft" string="Draft" domain="[('state','=', 'draft')]"/>
+                    <group expand="0" string="Group By" colspan="16">
+                            <filter string="Status" name="By Status" context="{'group_by':'state'}"/>
+                            <filter string="Vendor" name="By Vendor" context="{'group_by':'vendor_id'}"/>
+                    </group>         
+                </search>
+            </field>
+        </record>
+
+        <record model="ir.actions.act_window" id="nest_form_action">
+            <field name="name">Nest</field>
+            <field name="res_model">nest.nests</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+        <menuitem 
+            id="main_nest_form"
+            name="Nest"
+        />
+
+        <menuitem 
+            id="menu_nest_form"
+            name="Reception"
+            parent="main_nest_form"
+            action="nest_form_action"
+        />
+    </data>
+</odoo>

@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <data>
+        <record id="pay_order_wizard" model="ir.ui.view">
+            <field name="name">nest.nests.wizard</field>
+            <field name="model">nest.nests.wizard</field>
+            <field name="arch" type="xml">
+                <form>
+                    <group>
+                        <field name="sender_date"/>
+                        <field name="shipper" />
+                        <field name="nomor_resi"/>
+                    </group>
+                    <footer>
+                        <button name="process_wizard"
+                            string="Process"
+                            type="object"
+                            class="oe_highlight"
+                            />
+                        or
+                        <button string="Cancel" class="oe_link" special="cancel"/>
+                    </footer>
+                </form>
+            </field>
+        </record>
+    </data>
+</odoo>

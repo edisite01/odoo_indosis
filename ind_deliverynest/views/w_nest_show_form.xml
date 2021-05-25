@@ -1,0 +1,178 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>    
+    <template id="show_nest_form" name="Nest Show">
+        <t t-call="website.layout">
+            <div class="container">
+                <h4 class="label label-info"><i class="fa fa-truck-container"></i> Delivery Nest 
+                <i class="small">Registration Delivery Order</i>
+                </h4>  
+                <div class="row">          
+                <div class="col-sm-9">
+                    <div class="card table-responsive border rounded border-top-0">
+                        <form action="/nest/update/" method="POST" enctype="multipart/form-data">
+                            <input type="hidden" name="csrf_token" t-att-value="request.csrf_token()" />
+                            <input type="hidden" name="id" t-att-value="nest.id" />
+                            <div class="card-header">
+                                Detail Delivery Nest
+                                <span class="pull-right" t-att-value="nest.name"></span>
+                            </div>
+                            <div class="card-body">
+                                <div class="col-sm-12">                                
+                                    <div class="form-group row">                                
+                                        <label for='name' class="col-3 col-form-label">Schedule Delivery</label>
+                                        <div class="col-9">
+                                        <input id="date_order" type="date" name="date_order" class="form-control o_website_form_input o_website_form_date" t-att-value="nest.date_order" 
+                                        readonly="1"
+                                        />    
+                                                                
+                                        </div>                            
+                                    </div>                            
+                                    <div class="form-group row">                                                               
+                                        <label for='product_name' class="col-3 col-form-label">Product Name</label>
+                                        <div class="col-9">
+                                            <input type="text" name="product_name" class="form-control" t-att-value="nest.product_name" readonly="1"></input>    
+                                                                    
+                                        </div>                            
+                                    </div>     
+                                                                    
+                                    <div class="form-group row">
+                                        <label for='weight' class="col-3 col-form-label">Weight</label>
+                                        <div class="col-9">
+                                            <input type="number" name="weight" class="form-control" t-att-value="nest.weight" readonly="1"></input>                               
+                                        </div>
+                                    </div>                     
+                                
+                                </div>
+                            </div>
+                        </form>
+                    </div> 
+                    <br></br>  
+                    <br></br>  
+                    <t t-if="nest.state == 'draft'">                    
+                        <div class="form-group row">                        
+                            <div class="offset-sm-3 col-sm-7">                                   
+                            <a class="btn btn-primary btn-sm btn-block o_download_btn" title="Posting" t-attf-href="/nest/draft_toopen?id=#{nest.id}"><i class="fa fa-send"></i> Posting</a>                                                                                   
+                            </div>
+                        </div>                
+                    </t>
+                    <br></br> 
+                    <t t-if="nest.state in ('grading','grading_approval','purchase','billing','done')">
+                        <div class="card table-responsive border rounded border-top-0">
+                                <div class="card-header">
+                                    Grading
+                                    <span class="pull-right" t-att-value="nest.name"></span>
+                                </div>
+                                <div class="card-body">
+                                    <div class="col-sm-12">                                
+                                        <div class="form-group row">                                
+                                            <table width="100%" class="table table-sm rounded mb-0 bg-white">            
+                                                <tbody>
+                                                    <tr>
+                                                        <td width='25%'>Grading Date</td>
+                                                        <td width='85%'><span t-esc="nest.grading_ids.grading_date" /></td>
+                                                    </tr>                                                
+                                                    <tr>
+                                                        <td>PIC </td>
+                                                        <td><span t-esc="nest.grading_ids.pic_id.sudo().display_name" /></td>
+                                                    </tr>                                                
+                                                    <tr>
+                                                        <td>Weight</td>
+                                                        <td><span t-esc="nest.grading_ids.weight_grading" /></td>
+                                                    </tr>                                                
+                                                    <tr>
+                                                        <td>Price</td>
+                                                        <td><span t-esc="nest.grading_ids.price" /></td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>                        
+                                        </div>                 
+                                    </div>
+                                </div>
+                                <t t-if="nest.state == 'grading'">                    
+                                    <div class="form-group row">                        
+                                        <div class="offset-sm-3 col-sm-7">                                   
+                                            <a class="btn btn-primary btn-sm o_download_btn" title="Grading Approve" t-attf-href="/nest/grading_to_approve?id=#{nest.id}"><i class="fa fa-send"></i> Grading Approve</a>                                                                                   
+                                        </div>
+                                    </div>                
+                                </t>
+                            
+                        </div>
+
+                    </t>
+                    
+                    <br></br> 
+
+                </div>    
+
+                <div class="col-sm-3">          
+                    <div class="card bg-white">
+                        <div class="card-body text-center">                            
+                            <h4 class="mb-0">
+                                    <t t-if="nest.state == 'open'">
+                                        <span class="badge badge-pill badge-sm badge-block badge-info">Waiting Approve </span>
+                                    </t>                                        
+                                    <t t-if="nest.state == 'approve'">
+                                        <span class="badge badge-pill badge-sm badge-block badge-primary">Approved</span>
+                                    </t>
+                                    <t t-if="nest.state == 'done'">
+                                        <span class="badge badge-pill badge-sm badge-block badge-success">Done</span>
+                                    </t>
+                                    <t t-if="nest.state == 'cancel'">
+                                        <span class="badge badge-pill badge-sm badge-block badge-warning"> Cancelled</span>
+                                    </t>                                        
+                                    <t t-if="nest.state == 'draft'">
+                                        <span class="badge badge-pill badge-sm badge-block badge-primary">Draft</span>
+                                    </t>  
+
+                                    <t t-if="nest.state == 'sent'">
+                                        <span class="badge badge-pill badge-sm badge-block badge-primary">Sent</span>
+                                    </t>                                                                      
+                                    <t t-if="nest.state == 'receive'">
+                                        <span class="badge badge-pill badge-sm badge-block badge-primary">Receive</span>
+                                    </t>                                                                      
+                                    <t t-if="nest.state == 'cleanandrinse'">
+                                        <span class="badge badge-pill badge-sm badge-block badge-primary">Clean and Rinse</span>
+                                    </t>                                                                      
+                                    <t t-if="nest.state == 'grading'">
+                                        <span class="badge badge-pill badge-sm badge-block badge-primary">Grading</span>
+                                    </t>                                                                      
+                                    <t t-if="nest.state == 'grading_approval'">
+                                        <span class="badge badge-pill badge-sm badge-block badge-primary">Grading Approval</span>
+                                    </t>                                                                      
+                                    <t t-if="nest.state == 'purchase'">
+                                        <span class="badge badge-pill badge-sm badge-block badge-primary">Purchase</span>
+                                    </t>                                                                      
+                                    <t t-if="nest.state == 'billing'">
+                                        <span class="badge badge-pill badge-sm badge-block badge-primary">Billing</span>
+                                    </t>                                                                      
+                            </h4>                            
+                        </div>                        
+                        <ul class="list-group list-group-flush flex-wrap flex-row flex-lg-column">
+                            <li class="list-group-item active">Bukti Serah terima</li>
+                            <li class="list-group-item flex-grow-1">
+                                <div class="o_download_pdf btn-toolbar flex-sm-nowrap">
+                                    <div class="btn-group  flex-grow-1 mr-1 mb-1">
+                                        <a class="btn btn-primary btn-sm btn-block o_download_btn" title="Download" href="/my/invoices/3?access_token=b5407051-f9f2-4ce5-801d-622ef3fe30af&amp;report_type=pdf&amp;download=true"><i class="fa fa-download"></i> Download</a>
+                                    </div>
+                                    <div class="btn-group flex-grow-1 mb-1">
+                                        <a class="btn btn-primary btn-sm btn-block o_print_btn o_portal_invoice_print" id="print_invoice_report" title="Print" target="_blank" href="/my/invoices/3?access_token=b5407051-f9f2-4ce5-801d-622ef3fe30af&amp;report_type=pdf"><i class="fa fa-print"></i> Print</a>
+                                    </div>
+                                </div>
+                            </li>
+                        </ul>   
+                        <!-- <div class="list-group list-group-flush flex-wrap flex-row flex-lg-column">
+                            <a href="#" class="list-group-item list-group-item-action list-group-item-success">INFO DO</a>
+                            <a href="#" class="list-group-item list-group-item-action list-group-item-success">INFO CLEAN AND RINSE</a>
+                            <a href="#" class="list-group-item list-group-item-action list-group-item-success">INFO HASIL GRADING</a>
+                            <a href="#" class="list-group-item list-group-item-action list-group-item-success">PO</a>
+                            <a href="#" class="list-group-item list-group-item-action list-group-item-success">INVOICE</a>
+                        </div> -->
+                    </div>                    
+                </div>                           
+            </div>            
+            </div>            
+                    
+        </t>
+    </template>
+    
+</odoo>
