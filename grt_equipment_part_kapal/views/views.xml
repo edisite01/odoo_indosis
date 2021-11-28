@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record model="ir.ui.view" id="equipment_part_kapal_inherit">
+            <field name="name">Equipment.inherit.PartKapal</field>
+            <field name="model">maintenance.equipment</field>
+            <field name="inherit_id" ref="maintenance.hr_equipment_view_form"/>
+            <field name="arch" type="xml">
+            	
+                <xpath expr="/form/sheet/group" position="after">
+                <group>
+                    <group>
+                        <field name="tipe_part"/>
+                        <field name="fast_moving"  attrs="{'invisible':[('tipe_part','=','slowmoving')]}"/>
+                        <field name="slow_moving" attrs="{'invisible':[('tipe_part','=','fastmoving')]}"/>
+                        <field name="catatan"/>
+                    </group>
+                    <group>
+                        <field name="running_hour"/>
+                        <field name="expired_date"/>
+                        <field name="max_pemakaian"/>
+                    </group>
+                </group>
+                </xpath>
+             </field>
+    	</record>
+
+        <record model="ir.ui.view" id="maintenance_part_kapal_inherit">
+            <field name="name">maintenance.inherit.PartKapal</field>
+            <field name="model">maintenance.request</field>
+            <field name="inherit_id" ref="maintenance.hr_equipment_request_view_form"/>
+            <field name="arch" type="xml">
+            	
+                <xpath expr="/form/sheet/group" position="after">
+                <group>
+                    <group>
+                        <field name="estimate_expense"/>                        
+                    </group>
+                </group>
+                </xpath>
+             </field>
+    	</record>
+</odoo>
